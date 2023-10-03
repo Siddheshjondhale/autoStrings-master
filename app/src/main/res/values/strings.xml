@@ -99,4 +99,21 @@
         <item>7</item>
         <item>8</item>
     </string-array>
+
+    <string-array name="manufacturers_array">
+        <item>TATA</item>
+        <item>Maruti</item>
+        <item>Mahindra &amp; Mahindra</item>
+        <item>Hyundai</item>
+        <item>Toyota</item>
+        <item>Volkswagen (VW)</item>
+        <item>Honda</item>
+        <item>GM/Chevrolet</item>
+        <item>BMW</item>
+        <item>Mercedes</item>
+    </string-array>
+    
+
+
+
 </resources>
