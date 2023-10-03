@@ -234,7 +234,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <EditText
-                android:id="@+id/firstName"
+                android:id="@+id/fnameyes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
@@ -248,7 +248,7 @@
                 android:textColor="@color/black"
                 tools:ignore="TouchTargetSizeCheck,TextContrastCheck,VisualLintTextFieldSize" />
             <EditText
-                android:id="@+id/firstName"
+                android:id="@+id/lnameyes"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
