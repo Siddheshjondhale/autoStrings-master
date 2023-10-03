@@ -67,17 +67,17 @@ class DataStatusActivity : AppCompatActivity() {
         serviceDone.setOnItemClickListener { parent, view, position, id ->
              selectedText = parent.getItemAtPosition(position).toString()
             if(selectedText=="Yes") {
-                wherelayout.visibility=View.GONE
+                wherelayout.visibility=View.VISIBLE
 
 
-                whenlayout.visibility = View.VISIBLE
+                whenlayout.visibility = View.GONE
 
             }
             else{
                 selectedText="No"
-                whenlayout.visibility = View.GONE
+                whenlayout.visibility = View.VISIBLE
 
-                wherelayout.visibility = View.VISIBLE
+                wherelayout.visibility = View.GONE
             }
 
         }
@@ -98,7 +98,7 @@ class DataStatusActivity : AppCompatActivity() {
             {
                 if(selectedText=="Yes")
                 {
-                    if(isValidSelection(often) && isValidSelection(avgRunning) && isValidSelection(whenScheduled)){
+                    if(isValidSelection(often) && isValidSelection(avgRunning) && isValidSelection(where)){
                         val intent = Intent(this, DataFeedbackActivity::class.java).apply {
                         }
                         startActivity(intent)
@@ -108,7 +108,7 @@ class DataStatusActivity : AppCompatActivity() {
                     }
                 }
                     else{
-                    if(isValidSelection(often) && isValidSelection(avgRunning) && isValidSelection(where) ){
+                    if(isValidSelection(often) && isValidSelection(avgRunning) && isValidSelection(whenScheduled) ){
                         val intent = Intent(this, DataFeedbackActivity::class.java).apply {
                         }
                         startActivity(intent)
