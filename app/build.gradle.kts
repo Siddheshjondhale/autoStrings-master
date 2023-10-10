@@ -1,5 +1,5 @@
 plugins {
-
+    id("com.google.gms.google-services")
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
 }
@@ -44,7 +44,16 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation ("io.github.chaosleung:pinview:1.4.4")
     implementation ("com.hbb20:ccp:2.6.0")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.8.1")
     testImplementation("junit:junit:4.13.2")
+
+    implementation ("com.google.firebase:firebase-database-ktx:20.2.2")
+    implementation ("com.google.firebase:firebase-auth-ktx:22.0.0")
+
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+
+
+
 }
