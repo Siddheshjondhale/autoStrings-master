@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -27,6 +29,21 @@ class RegisterActivity : AppCompatActivity() {
         val lastNameEditText = findViewById<EditText>(R.id.lastNameuser)
         val mobileNumberEditText = findViewById<EditText>(R.id.lastName)
         val registerButton = findViewById<Button>(R.id.registerBtn)
+        val generateButton=findViewById<Button>(R.id.generateButton)
+        val empidUI=findViewById<TextView>(R.id.empid)
+        var empId: String? =null;
+
+
+        generateButton.setOnClickListener {
+            val firstName = firstNameEditText.text.toString()
+            val lastName = lastNameEditText.text.toString()
+
+            // Generate employee ID
+            empId = generateEmployeeId(firstName, lastName)
+
+            // Set the generated empId to the "empid" TextView
+            empidUI.text = empId
+        }
 
         registerButton.setOnClickListener {
             // Get user input
@@ -36,6 +53,11 @@ class RegisterActivity : AppCompatActivity() {
             val lastName = lastNameEditText.text.toString()
             val mobileNumber = mobileNumberEditText.text.toString()
 
+
+
+
+
+
             // Register the user with email and password
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this) { task ->
@@ -43,8 +65,6 @@ class RegisterActivity : AppCompatActivity() {
                         // Registration successful
                         val user = auth.currentUser
                         if (user != null) {
-                            // Generate employee ID
-                            val empId = generateEmployeeId(firstName, lastName)
 
                             // Create a user object with data
                             val userData = hashMapOf(
@@ -56,10 +76,11 @@ class RegisterActivity : AppCompatActivity() {
 
                             // Store user data in Firestore
                             db.collection("users")
-                                .document(user.uid)
+                                .document(empId.toString())
                                 .set(userData)
                                 .addOnSuccessListener {
                                     Log.d(TAG, "User data added to Firestore")
+                                    Toast.makeText(this, "Registration sucessfull", Toast.LENGTH_SHORT).show()
                                     // Redirect to the next activity or perform other actions
                                 }
                                 .addOnFailureListener { e ->
