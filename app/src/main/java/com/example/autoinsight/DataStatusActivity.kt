@@ -25,12 +25,25 @@ import com.example.autoinsight.DataContactActivity.Companion.k
 import com.example.autoinsight.DataContactActivity.Companion.l
 import com.example.autoinsight.DataContactActivity.Companion.m
 
-
 class DataStatusActivity : AppCompatActivity() {
-    @SuppressLint("MissingInflatedId")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_datastatus)
+
+        // Retrieve the values passed from DataCarActivity
+        val firstName = intent.getStringExtra("firstName")
+        val lastName = intent.getStringExtra("lastName")
+        val houseNo = intent.getStringExtra("houseNo")
+        val city = intent.getStringExtra("city")
+        val state = intent.getStringExtra("state")
+        val pinCode = intent.getStringExtra("pinCode")
+        val mobile = intent.getStringExtra("mobile")
+        val email = intent.getStringExtra("email")
+        val manufacturer = intent.getStringExtra("manufacturer")
+        val carModel = intent.getStringExtra("carModel")
+        val fuelType = intent.getStringExtra("fuelType")
+        val carSegment = intent.getStringExtra("carSegment")
 
         var selectedText: String? = null
 
@@ -38,9 +51,6 @@ class DataStatusActivity : AppCompatActivity() {
         val arrayAdapter = ArrayAdapter(this, R.layout.dropdown, services)
         val serviceDone = findViewById<AutoCompleteTextView>(R.id.serviceDone)
         serviceDone.setAdapter(arrayAdapter)
-
-
-
 
         val doneWhere = resources.getStringArray(R.array.doneWhere)
         val arrayAdapter1: ArrayAdapter<String> = ArrayAdapter(this, R.layout.dropdown, doneWhere)
@@ -62,30 +72,20 @@ class DataStatusActivity : AppCompatActivity() {
         val avgRunning = findViewById<AutoCompleteTextView>(R.id.avgRunning)
         avgRunning.setAdapter(arrayAdapter4)
 
-        val whenlayout=findViewById<LinearLayout>(R.id.whenlayout)
-        val wherelayout=findViewById<LinearLayout>(R.id.wherelayout)
-        serviceDone.setOnItemClickListener { parent, view, position, id ->
-             selectedText = parent.getItemAtPosition(position).toString()
-            if(selectedText=="Yes") {
-                wherelayout.visibility=View.VISIBLE
+        val whenlayout = findViewById<LinearLayout>(R.id.whenlayout)
+        val wherelayout = findViewById<LinearLayout>(R.id.wherelayout)
 
-
+        serviceDone.setOnItemClickListener { _, _, position, _ ->
+            selectedText = serviceDone.text.toString()
+            if (selectedText == "Yes") {
+                wherelayout.visibility = View.VISIBLE
                 whenlayout.visibility = View.GONE
-
-            }
-            else{
-                selectedText="No"
+            } else {
+                selectedText = "No"
                 whenlayout.visibility = View.VISIBLE
-
                 wherelayout.visibility = View.GONE
             }
-
         }
-
-
-
-
-
 
         fun isValidSelection(autoCompleteTextView: AutoCompleteTextView): Boolean {
             val selectedValue = autoCompleteTextView.text.toString()
@@ -94,37 +94,59 @@ class DataStatusActivity : AppCompatActivity() {
 
         val snext = this.findViewById<Button>(R.id.snext)
         snext.setOnClickListener {
-            if(isValidSelection(serviceDone))
-            {
-                if(selectedText=="Yes")
-                {
-                    if(isValidSelection(often) && isValidSelection(avgRunning) && isValidSelection(where)){
+            if (isValidSelection(serviceDone)) {
+                if (selectedText == "Yes") {
+                    if (isValidSelection(often) && isValidSelection(avgRunning) && isValidSelection(where)) {
                         val intent = Intent(this, DataFeedbackActivity::class.java).apply {
+                            putExtra("firstName", firstName)
+                            putExtra("lastName", lastName)
+                            putExtra("houseNo", houseNo)
+                            putExtra("city", city)
+                            putExtra("state", state)
+                            putExtra("pinCode", pinCode)
+                            putExtra("mobile", mobile)
+                            putExtra("email", email)
+                            putExtra("manufacturer", manufacturer)
+                            putExtra("carModel", carModel)
+                            putExtra("fuelType", fuelType)
+                            putExtra("carSegment", carSegment)
+                            putExtra("serviceDone", selectedText)
+                            putExtra("where", where.text.toString())
+                            putExtra("often", often.text.toString())
+                            putExtra("avgRunning", avgRunning.text.toString())
                         }
                         startActivity(intent)
+                    } else {
+                        Toast.makeText(this, "Please fill all the mandatory * fields", Toast.LENGTH_SHORT).show()
                     }
-                    else{
+                } else {
+                    if (isValidSelection(often) && isValidSelection(avgRunning) && isValidSelection(whenScheduled)) {
+                        val intent = Intent(this, DataFeedbackActivity::class.java).apply {
+                            putExtra("firstName", firstName)
+                            putExtra("lastName", lastName)
+                            putExtra("houseNo", houseNo)
+                            putExtra("city", city)
+                            putExtra("state", state)
+                            putExtra("pinCode", pinCode)
+                            putExtra("mobile", mobile)
+                            putExtra("email", email)
+                            putExtra("manufacturer", manufacturer)
+                            putExtra("carModel", carModel)
+                            putExtra("fuelType", fuelType)
+                            putExtra("carSegment", carSegment)
+                            putExtra("serviceDone", selectedText)
+                            putExtra("often", often.text.toString())
+                            putExtra("avgRunning", avgRunning.text.toString())
+                            putExtra("whenScheduled", whenScheduled.text.toString())
+                        }
+                        startActivity(intent)
+                    } else {
                         Toast.makeText(this, "Please fill all the mandatory * fields", Toast.LENGTH_SHORT).show()
                     }
                 }
-                    else{
-                    if(isValidSelection(often) && isValidSelection(avgRunning) && isValidSelection(whenScheduled) ){
-                        val intent = Intent(this, DataFeedbackActivity::class.java).apply {
-                        }
-                        startActivity(intent)
-                    }
-                    else{
-                        Toast.makeText(this, "Please fill all the mandatory * fields", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-            }
-            else{
+            } else {
                 Toast.makeText(this, "Please fill all the mandatory * fields", Toast.LENGTH_SHORT).show()
-
             }
-
-
         }
 
         val logout = this.findViewById<ImageView>(R.id.logout)
@@ -133,30 +155,5 @@ class DataStatusActivity : AppCompatActivity() {
             }
             startActivity(intent)
         }
-
-       /* val dbHelper = DBHelper(applicationContext)
-
-        dbHelper.addData(
-            j.text.toString(),
-            a.text.toString(),
-            b.text.toString(),
-            c.text.toString(),
-            d.text.toString(),
-            e.text.toString(),
-            f.text.toString(),
-            g.text.toString(),
-            h.text.toString(),
-            i.text.toString(),
-            k.text.toString(),
-            l.text.toString(),
-            m.text.toString()
-        )
-
-        Toast.makeText(
-            applicationContext,
-            "data added",
-            Toast.LENGTH_SHORT)
-            .show()*/
-
     }
 }

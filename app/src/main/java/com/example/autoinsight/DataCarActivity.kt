@@ -50,6 +50,17 @@ class DataCarActivity : AppCompatActivity() {
         l = this.findViewById(R.id.regNo)
         m = this.findViewById(R.id.fuel)*/
 
+        val firstName = intent.getStringExtra("firstName")
+        val lastName = intent.getStringExtra("lastName")
+        val houseNo = intent.getStringExtra("houseNo")
+        val city = intent.getStringExtra("city")
+        val state = intent.getStringExtra("state")
+        val pinCode = intent.getStringExtra("pinCode")
+        val mobile = intent.getStringExtra("mobile")
+        val email = intent.getStringExtra("email")
+
+
+
         val brandAutoCompleteTextView = findViewById<AutoCompleteTextView>(R.id.manufacturer)
         val modelAutoCompleteTextView = findViewById<AutoCompleteTextView>(R.id.car_model)
 
@@ -83,18 +94,27 @@ class DataCarActivity : AppCompatActivity() {
 
             val cnextButton = this.findViewById<Button>(R.id.cnextButton)
             cnextButton.setOnClickListener {
-                /*if (g.text.toString().isEmpty() || h.text.toString().isEmpty() || i.text.toString().isEmpty() || l.text.toString().isEmpty() || m.text.toString().isEmpty()) {
-                Toast.makeText(
-                    applicationContext,
-                    "Please fill all the mandatory * fields.",
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-            } else {*/
+                val manufacturer = brandAutoCompleteTextView.text.toString()
+                val carModel = modelAutoCompleteTextView.text.toString()
+                val fuelType = fuel.text.toString()
+                val carSegment = segment.text.toString()
+
+                // Create an intent to start the next activity and pass data as extras
                 val intent = Intent(this, DataStatusActivity::class.java).apply {
+                    putExtra("firstName", firstName)
+                    putExtra("lastName", lastName)
+                    putExtra("houseNo", houseNo)
+                    putExtra("city", city)
+                    putExtra("state", state)
+                    putExtra("pinCode", pinCode)
+                    putExtra("mobile", mobile)
+                    putExtra("email", email)
+                    putExtra("manufacturer", manufacturer)
+                    putExtra("carModel", carModel)
+                    putExtra("fuelType", fuelType)
+                    putExtra("carSegment", carSegment)
                 }
                 startActivity(intent)
-                /*}*/
             }
 
             val logout = this.findViewById<ImageView>(R.id.logout)

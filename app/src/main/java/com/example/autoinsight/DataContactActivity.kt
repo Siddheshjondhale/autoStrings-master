@@ -8,10 +8,12 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.hbb20.CountryCodePicker
 
 
 class DataContactActivity : AppCompatActivity() {
+    val firebaseAuth = FirebaseAuth.getInstance()
 
     companion object{
         @SuppressLint("StaticFieldLeak")
@@ -68,6 +70,8 @@ class DataContactActivity : AppCompatActivity() {
 
         val logout = this.findViewById<ImageView>(R.id.logout)
         logout.setOnClickListener {
+            firebaseAuth.signOut()
+
             val intent = Intent(this, LoginActivity::class.java).apply {
             }
             startActivity(intent)
