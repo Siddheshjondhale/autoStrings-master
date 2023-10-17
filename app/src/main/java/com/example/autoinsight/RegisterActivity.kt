@@ -71,7 +71,8 @@ class RegisterActivity : AppCompatActivity() {
                                 "firstName" to firstName,
                                 "lastName" to lastName,
                                 "mobileNumber" to mobileNumber,
-                                "employeeId" to empId
+                                "employeeId" to empId,
+                                "emaildId" to email
                             )
 
                             // Store user data in Firestore
@@ -106,6 +107,7 @@ class RegisterActivity : AppCompatActivity() {
         val empId = firstName.take(2).toUpperCase(Locale.ROOT) +
                 lastName.takeLast(2).toUpperCase(Locale.ROOT) +
                 randomCode.toString()
+
 
         return empId
     }
