@@ -63,6 +63,8 @@ class DataContactActivity : AppCompatActivity() {
                     .show()
             } else {
                 val intent = Intent(this, DataOtpActivity::class.java).apply {
+                    putExtra("mobile", j.text.toString()) // Pass the mobile data to DataPersonalActivity
+                    putExtra("email", k.text.toString())
                 }
                 startActivity(intent)
             }

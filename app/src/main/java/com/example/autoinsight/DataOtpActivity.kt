@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 
@@ -25,6 +26,7 @@ class DataOtpActivity : AppCompatActivity() {
         val mobile = intent.getStringExtra("mobile")
         val email = intent.getStringExtra("email")
 
+//        Toast.makeText(this, mobile.toString(), Toast.LENGTH_SHORT).show()
         val verify = this.findViewById<Button>(R.id.verify)
         verify.setOnClickListener {
             val intent = Intent(this, DataPersonalActivity::class.java).apply {
