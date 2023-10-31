@@ -19,12 +19,21 @@ class WashOtpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_washotp)
 
+
+        val mobile = intent.getStringExtra("mobile")
+        val email = intent.getStringExtra("email")
+
+//        Toast.makeText(this, mobile.toString(), Toast.LENGTH_SHORT).show()
         val verify = this.findViewById<Button>(R.id.verify)
         verify.setOnClickListener {
             val intent = Intent(this, WashPersonalActivity::class.java).apply {
+                putExtra("mobile", mobile) // Pass the mobile data to DataPersonalActivity
+                putExtra("email", email)   // Pass the email data to DataPersonalActivity
             }
             startActivity(intent)
         }
+
+
 
         resendTextView = findViewById(R.id.resendTextView)
         startCountdownTimer()
