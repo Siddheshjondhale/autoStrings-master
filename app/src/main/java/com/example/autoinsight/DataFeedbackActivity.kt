@@ -80,10 +80,11 @@ class DataFeedbackActivity : AppCompatActivity() {
 
             // Firestore collection reference
             val dataCollection = db.collection("datacollection")
-            val currentUserDoc = dataCollection.document(userEmail+"||"+email.toString() ?: "unknown_email")
+            val currentUserDoc = dataCollection.document(email.toString() ?: "unknown_email")
 
             // Create a HashMap to store all the data
             val userData = hashMapOf(
+                "collectedBy" to userEmail,
                 "firstName" to firstName,
                 "lastName" to lastName,
                 "houseNo" to houseNo,
@@ -111,6 +112,7 @@ class DataFeedbackActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     // Data saved successfully
                     Toast.makeText(this, "Data saved to Firestore", Toast.LENGTH_SHORT).show()
+
                 }
                 .addOnFailureListener {
                     // Handle the error

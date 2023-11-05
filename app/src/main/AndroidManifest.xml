@@ -46,9 +46,11 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
-        <activity
-            android:name=".WashContactActivity"
-            android:exported="false" />
+
+        <activity android:name=".DataContactActivity">
+            <!-- Additional attributes may be present here -->
+        </activity>
+
         <activity
             android:name=".DataCarActivity"
             android:exported="false" />

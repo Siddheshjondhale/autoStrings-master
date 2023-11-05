@@ -111,8 +111,11 @@ class activity_washplans : AppCompatActivity() {
             // Store the data in Firestore
             val db = FirebaseFirestore.getInstance()
             val currentUserEmail = email // Change this to the user's email
-            val docRef = db.collection("carWashing").document(currentUserEmail.toString())
+            val docRef = db.collection("carWashing").document(email.toString())
+            val userEmail = currentUserEmail
+
             val data = hashMapOf(
+                "collectedBy" to userEmail,
                 "firstName" to firstName,
                 "lastName" to lastName,
                 "houseNo" to houseNo,
