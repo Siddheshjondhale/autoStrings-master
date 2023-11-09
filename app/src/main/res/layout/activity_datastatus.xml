@@ -418,7 +418,7 @@
                 android:drawablePadding="8dp"
                 android:fontFamily="@font/montserrat"
                 android:hint="76"
-                android:inputType="text"
+                android:inputType="number"
                 android:padding="10dp"
                 android:textColor="@color/black"
                 tools:ignore="TouchTargetSizeCheck,TextContrastCheck,VisualLintTextFieldSize" />

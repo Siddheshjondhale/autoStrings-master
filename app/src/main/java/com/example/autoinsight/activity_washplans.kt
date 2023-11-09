@@ -1,5 +1,6 @@
 package com.example.autoinsight
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -134,6 +135,8 @@ class activity_washplans : AppCompatActivity() {
             docRef.set(data)
                 .addOnSuccessListener {
                     showToast("Data saved to Firestore successfully")
+                    val intent = Intent(this, SelectActivity::class.java)
+                    startActivity(intent)
                 }
                 .addOnFailureListener {
                     showToast("Failed to save data to Firestore")

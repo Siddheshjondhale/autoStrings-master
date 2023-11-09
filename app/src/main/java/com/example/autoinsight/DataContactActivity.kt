@@ -59,16 +59,24 @@ class DataContactActivity : AppCompatActivity() {
                 Toast.makeText(
                     applicationContext,
                     "Please fill the mandatory * field.",
-                    Toast.LENGTH_SHORT)
-                    .show()
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else if (!isValidEmail(k.text.toString())) {
+                // Show an error message or handle the invalid email condition
+                Toast.makeText(
+                    applicationContext,
+                    "Invalid email address",
+                    Toast.LENGTH_SHORT
+                ).show()
             } else {
                 val intent = Intent(this, DataOtpActivity::class.java).apply {
-                    putExtra("mobile", j.text.toString()) // Pass the mobile data to DataPersonalActivity
+                    putExtra("mobile", j.text.toString())
                     putExtra("email", k.text.toString())
                 }
                 startActivity(intent)
             }
         }
+
 
         val logout = this.findViewById<ImageView>(R.id.logout)
         logout.setOnClickListener {
@@ -79,4 +87,9 @@ class DataContactActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    private fun isValidEmail(email: String): Boolean {
+        return email.contains("@")
+    }
+
 }
