@@ -20,7 +20,14 @@ class LoginActivity : AppCompatActivity() {
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
-            loginUser(email, password)
+            if (isValidEmail(email)) {
+                loginUser(email, password)
+            } else {
+                // Show an error message or handle the invalid email condition
+                // For example, you can set an error on the emailEditText:
+                emailEditText.error = "Invalid email address"
+            }
+
         }
 
         val register = findViewById<TextView>(R.id.register)
@@ -46,4 +53,9 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
+    private fun isValidEmail(email: String): Boolean {
+        return email.contains("@")
+    }
+    
+
 }
