@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import java.util.Locale
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,13 +22,8 @@ class LoginActivity : AppCompatActivity() {
         loginButton.setOnClickListener {
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
-            if (isValidEmail(email)) {
                 loginUser(email, password)
-            } else {
-                // Show an error message or handle the invalid email condition
-                // For example, you can set an error on the emailEditText:
-                emailEditText.error = "Invalid email address"
-            }
+
 
         }
 
@@ -39,12 +36,14 @@ class LoginActivity : AppCompatActivity() {
 
     private fun loginUser(email: String, password: String) {
         val auth = FirebaseAuth.getInstance()
-
-        auth.signInWithEmailAndPassword(email, password)
+        val loweremail=email?.toLowerCase(Locale.ROOT)
+        val emailusername= "$loweremail@autostrings.com"
+        auth.signInWithEmailAndPassword(emailusername, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Login was successful
-                    val user = auth.currentUser
+                        val user = auth.currentUser
+                    Toast.makeText(this, loweremail.toString()+" Login successfully", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, SelectActivity::class.java)
                     startActivity(intent)
                 } else {
@@ -53,9 +52,6 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
-    private fun isValidEmail(email: String): Boolean {
-        return email.contains("@")
-    }
-    
+
 
 }

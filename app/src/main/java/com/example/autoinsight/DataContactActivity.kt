@@ -81,7 +81,7 @@ class DataContactActivity : AppCompatActivity() {
         val logout = this.findViewById<ImageView>(R.id.logout)
         logout.setOnClickListener {
             firebaseAuth.signOut()
-
+            Toast.makeText(this, "Logout successfully", Toast.LENGTH_SHORT).show()
             val intent = Intent(this, LoginActivity::class.java).apply {
             }
             startActivity(intent)

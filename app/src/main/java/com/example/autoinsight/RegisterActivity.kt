@@ -47,6 +47,7 @@ class RegisterActivity : AppCompatActivity() {
 
         registerButton.setOnClickListener {
             // Get user input
+            val username = empId?.toLowerCase(Locale.ROOT)
             val email = emailEditText.text.toString()
             val password = passwordEditText.text.toString()
             val firstName = firstNameEditText.text.toString()
@@ -55,11 +56,8 @@ class RegisterActivity : AppCompatActivity() {
 
 
 
-
-
-
             // Register the user with email and password
-            auth.createUserWithEmailAndPassword(email, password)
+            auth.createUserWithEmailAndPassword("$username@autostrings.com", password)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         // Registration successful
