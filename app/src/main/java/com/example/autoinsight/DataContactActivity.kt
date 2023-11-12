@@ -69,7 +69,7 @@ class DataContactActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                val intent = Intent(this, DataOtpActivity::class.java).apply {
+                val intent = Intent(this, DataPersonalActivity::class.java).apply {
                     putExtra("mobile", j.text.toString())
                     putExtra("email", k.text.toString())
                 }
