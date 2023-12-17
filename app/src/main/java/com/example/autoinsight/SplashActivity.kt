@@ -1,8 +1,13 @@
+// SplashActivity.kt
+
 package com.example.autoinsight
 
 import android.annotation.SuppressLint
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,7 +15,7 @@ import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
 @Suppress("DEPRECATION")
@@ -24,6 +29,7 @@ class SplashActivity : AppCompatActivity() {
     private var splashScreen: Int = 5000
 
     private lateinit var firebaseAuth: FirebaseAuth
+    private var networkReceiver: NetworkReceiver? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,20 +49,59 @@ class SplashActivity : AppCompatActivity() {
 
         firebaseAuth = FirebaseAuth.getInstance()
 
-        // Check if a user is already authenticated using Firebase
-        if (firebaseAuth.currentUser != null) {
-            // If a user is logged in, navigate to SelectActivity
-            val intent = Intent(this, SelectActivity::class.java)
-            startActivity(intent)
-            finish()
+        // Check internet connectivity
+        if (isNetworkAvailable()) {
+            // Check if a user is already authenticated using Firebase
+            if (firebaseAuth.currentUser != null) {
+                // If a user is logged in, navigate to SelectActivity
+                val intent = Intent(this, SelectActivity::class.java)
+                startActivity(intent)
+                finish()
+            } else {
+                // If not logged in, proceed to LoginActivity after the splash screen delay
+                val r = Runnable {
+                    val intent = Intent(this, LoginActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }
+                Handler(Looper.getMainLooper()).postDelayed(r, splashScreen.toLong())
+            }
         } else {
-            // If not logged in, proceed to LoginActivity after the splash screen delay
-            val r = Runnable {
-                val intent = Intent(this, LoginActivity::class.java)
+            // Show custom dialog for no internet
+            showNoInternetDialog()
+        }
+
+        // Register the network receiver to monitor network changes
+        networkReceiver = NetworkReceiver()
+        registerReceiver(networkReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Unregister the network receiver to avoid memory leaks
+        unregisterReceiver(networkReceiver)
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
+    }
+
+    private fun showNoInternetDialog() {
+        val dialog = CustomDialog(this, "Please turn on the internet connection")
+        dialog.show()
+    }
+
+    inner class NetworkReceiver : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (isNetworkAvailable()) {
+                // Internet turned on while on splash screen, navigate to next activity
+                val intent = Intent(context, SelectActivity::class.java)
                 startActivity(intent)
                 finish()
             }
-            Handler(Looper.getMainLooper()).postDelayed(r, splashScreen.toLong())
         }
     }
 }
