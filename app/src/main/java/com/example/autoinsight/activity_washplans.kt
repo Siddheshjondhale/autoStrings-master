@@ -135,7 +135,8 @@ class activity_washplans : AppCompatActivity() {
             docRef.set(data)
                 .addOnSuccessListener {
                     showToast("Data saved to Firestore successfully")
-                    val intent = Intent(this, SelectActivity::class.java)
+                    val intent = Intent(this, PaymentActivity::class.java)
+                    intent.putExtra("planSelected", selectedPlan)
                     startActivity(intent)
                 }
                 .addOnFailureListener {

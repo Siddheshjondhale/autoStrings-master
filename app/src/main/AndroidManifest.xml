@@ -47,7 +47,9 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
-
+        <activity
+            android:name=".PaymentActivity"
+            android:exported="false" />
         <activity android:name=".DataContactActivity">
             <!-- Additional attributes may be present here -->
         </activity>
