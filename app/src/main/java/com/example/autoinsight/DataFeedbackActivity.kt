@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -121,5 +122,15 @@ class DataFeedbackActivity : AppCompatActivity() {
                     Toast.makeText(this, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
                 }
         }
+
+
+        val logout = this.findViewById<ImageView>(R.id.logout)
+        logout.setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java).apply {
+            }
+            startActivity(intent)
+        }
+
+
     }
 }

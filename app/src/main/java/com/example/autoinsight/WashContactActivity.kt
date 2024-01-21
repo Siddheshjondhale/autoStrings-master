@@ -68,7 +68,7 @@ class WashContactActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
-                val intent = Intent(this, WashOtpActivity::class.java).apply {
+                val intent = Intent(this, WashPersonalActivity::class.java).apply {
                     putExtra("mobile", j.text.toString())
                     putExtra("email", k.text.toString())
                 }

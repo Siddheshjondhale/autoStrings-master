@@ -80,7 +80,7 @@
                 android:layout_marginEnd="20dp"
                 android:background="@drawable/custom_btn"
                 android:padding="10dp"
-                android:text="Car Washing"
+                android:text="Car Care"
                 android:textAllCaps="true"
                 android:textSize="15sp"
                 app:backgroundTint="@null"

@@ -97,11 +97,32 @@ class SplashActivity : AppCompatActivity() {
     inner class NetworkReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             if (isNetworkAvailable()) {
-                // Internet turned on while on splash screen, navigate to next activity
-                val intent = Intent(context, SelectActivity::class.java)
-                startActivity(intent)
-                finish()
+
+
+                if (firebaseAuth.currentUser != null) {
+                    // If a user is logged in, navigate to SelectActivity
+                    val intent = Intent(context, SelectActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    // If not logged in, proceed to LoginActivity after the splash screen delay
+                    val r = Runnable {
+                        val intent = Intent(context, LoginActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                    Handler(Looper.getMainLooper()).postDelayed(r, splashScreen.toLong())
+                }
+
+
+
+
+
+
             }
         }
     }
+
+
+
 }

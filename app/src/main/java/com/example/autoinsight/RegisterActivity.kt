@@ -80,7 +80,12 @@ class RegisterActivity : AppCompatActivity() {
                                 .addOnSuccessListener {
                                     Log.d(TAG, "User data added to Firestore")
                                     Toast.makeText(this, "Registration sucessfull", Toast.LENGTH_SHORT).show()
+                                    val intent = Intent(this, LoginActivity::class.java).apply {
+                                    }
+                                    startActivity(intent)
+
                                     // Redirect to the next activity or perform other actions
+
                                 }
                                 .addOnFailureListener { e ->
                                     Log.w(TAG, "Error adding user data to Firestore", e)

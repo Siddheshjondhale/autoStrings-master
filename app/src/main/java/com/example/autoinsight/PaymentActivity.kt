@@ -1,5 +1,6 @@
 package com.example.autoinsight
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import org.w3c.dom.Text
 
 class PaymentActivity : AppCompatActivity() {
@@ -44,6 +46,21 @@ class PaymentActivity : AppCompatActivity() {
 
         displayPlan.text = " Your Selected Plan: ₹" + obtainedPlan
 
-        
+
+        submitButton.setOnClickListener {
+            // Display a toast message after clicking the submit button
+            showToast("Data saved to Firestore successfully")
+            val toastMessage = "Thankyou"
+            Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
+            val intent= Intent(this,SelectActivity::class.java)
+            startActivity(intent)
+            // You can perform additional actions here if needed
+        }
+
+
+
+    }
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
